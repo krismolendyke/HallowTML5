@@ -1,0 +1,22 @@
+@import "base";
+
+body {
+    @include background-size(cover);
+    @include background-image(image-url("background.jpg"));
+}
+
+#guy, #ghost-guy {
+    width: 373px;
+    height: 600px;
+
+    position: absolute;
+    left: 300px;
+}
+
+#guy {
+    @include background-image(image-url("guy.png"));
+}
+
+#ghost-guy {
+    @include background-image(image-url("ghost-guy.png"));
+}
