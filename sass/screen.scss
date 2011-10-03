@@ -3,6 +3,7 @@
 body {
     @include background-size(cover);
     @include background-image(image-url("background.jpg"));
+    background-repeat: no-repeat;
 }
 
 #guy, #ghost-guy {
@@ -11,6 +12,7 @@ body {
 
     position: absolute;
     left: 300px;
+    top: 60px;
 }
 
 #guy {
@@ -19,4 +21,20 @@ body {
 
 #ghost-guy {
     @include background-image(image-url("ghost-guy.png"));
+}
+
+.bat {
+    $height: 100px;
+    $width: $height;
+
+    height: $height;
+    width: $width;
+
+    position: absolute;
+    left: 900px;
+    top: 300px;
+
+    @include background-image(image-url("bat.png"));
+    @include background-size($height, $width);
+    background-repeat: no-repeat;
 }
