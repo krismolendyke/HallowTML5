@@ -100,6 +100,6 @@ hllwtml5.init = function() {
     var gun = goog.dom.query('#gun')[0];
     var crosshair = goog.dom.query('#crosshair')[0];
 
-    hllwtml5.animation.rotateTowardMouse(gun, 60);
+    hllwtml5.animation.rotateTowardMouse(gun, 61);
     hllwtml5.animation.translateToUnderMouse(crosshair);
 };
