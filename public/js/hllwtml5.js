@@ -6,6 +6,9 @@ goog.require('goog.events');
 goog.require('goog.math.Vec2');
 goog.require('hllwtml5.animation');
 
+/**
+ * Wobble!
+ */
 hllwtml5.wobbleGhostGuy = function() {
     move('#ghost-guy')
         .duration('.5s')
@@ -14,6 +17,9 @@ hllwtml5.wobbleGhostGuy = function() {
         .end(hllwtml5.unwobbleGhostGuy);
 };
 
+/**
+ * Unwobble!
+ */
 hllwtml5.unwobbleGhostGuy = function() {
     move('#ghost-guy')
         .duration('.1s')
@@ -43,6 +49,9 @@ hllwtml5.randomInteger = function(max, opt_negate) {
     return random;
 };
 
+/**
+ * Batshit!
+ */
 hllwtml5.goBatty = function() {
     var bats = goog.dom.query('.bat');
     var loop;
@@ -76,52 +85,6 @@ hllwtml5.goBatty = function() {
     goog.array.forEach(bats, loop);
 };
 
-hllwtml5.radToDeg = function(rad) {
-    return rad * (180 / Math.PI);
-};
-
-hllwtml5.mousey = function() {
-    var listener;
-    var gun = goog.dom.query('#gun')[0];
-
-    listener = function(e) {
-        var viewportSize;
-
-        var gunCenter;
-        var gunNorthVec;
-        var gunNorth;
-
-        var mouse;
-        var pointerVec;
-
-        var degrees;
-
-        viewportSize = goog.dom.getViewportSize();
-        gunCenter = new goog.math.Vec2(viewportSize.width - 225,
-                viewportSize.height - 220);
-        gunNorth = new goog.math.Vec2(gunCenter.x, gunCenter.y + 10);
-        gunNorthVec = goog.math.Vec2.difference(gunCenter, gunNorth).normalize();
-
-        mouse = new goog.math.Vec2(e.offsetX, e.offsetY);
-        pointerVec = goog.math.Vec2.difference(mouse, gunCenter).normalize();
-
-
-        console.log('gunNorthVec: ', gunNorthVec);
-        console.log('pointerVec: ', pointerVec);
-        degrees = hllwtml5.radToDeg(goog.math.Vec2.dot(gunNorthVec, pointerVec));
-        console.log('degrees: ', degrees);
-
-        move(gun)
-            // .skew((e.offsetX / viewportSize.width) * -35,
-            //         (e.offsetY / viewportSize.height) * -35)
-            .rotate(degrees)
-            .duration('.1s')
-            .end();
-    };
-
-    goog.events.listen(document, goog.events.EventType.MOUSEMOVE, listener);
-};
-
 /**
  * Initialize the application and kick off animation loops.
  */
@@ -137,6 +100,6 @@ hllwtml5.init = function() {
     var gun = goog.dom.query('#gun')[0];
     var crosshair = goog.dom.query('#crosshair')[0];
 
-    console.log(hllwtml5.animation.rotateTowardMouse(gun, 60));
+    hllwtml5.animation.rotateTowardMouse(gun, 60);
     hllwtml5.animation.translateToUnderMouse(crosshair);
 };
