@@ -2,6 +2,9 @@ goog.provide('hllwtml5');
 
 goog.require('goog.dom');
 goog.require('goog.dom.query');
+goog.require('goog.events');
+goog.require('goog.math.Vec2');
+goog.require('hllwtml5.animation');
 
 hllwtml5.wobbleGhostGuy = function() {
     move('#ghost-guy')
@@ -73,6 +76,52 @@ hllwtml5.goBatty = function() {
     goog.array.forEach(bats, loop);
 };
 
+hllwtml5.radToDeg = function(rad) {
+    return rad * (180 / Math.PI);
+};
+
+hllwtml5.mousey = function() {
+    var listener;
+    var gun = goog.dom.query('#gun')[0];
+
+    listener = function(e) {
+        var viewportSize;
+
+        var gunCenter;
+        var gunNorthVec;
+        var gunNorth;
+
+        var mouse;
+        var pointerVec;
+
+        var degrees;
+
+        viewportSize = goog.dom.getViewportSize();
+        gunCenter = new goog.math.Vec2(viewportSize.width - 225,
+                viewportSize.height - 220);
+        gunNorth = new goog.math.Vec2(gunCenter.x, gunCenter.y + 10);
+        gunNorthVec = goog.math.Vec2.difference(gunCenter, gunNorth).normalize();
+
+        mouse = new goog.math.Vec2(e.offsetX, e.offsetY);
+        pointerVec = goog.math.Vec2.difference(mouse, gunCenter).normalize();
+
+
+        console.log('gunNorthVec: ', gunNorthVec);
+        console.log('pointerVec: ', pointerVec);
+        degrees = hllwtml5.radToDeg(goog.math.Vec2.dot(gunNorthVec, pointerVec));
+        console.log('degrees: ', degrees);
+
+        move(gun)
+            // .skew((e.offsetX / viewportSize.width) * -35,
+            //         (e.offsetY / viewportSize.height) * -35)
+            .rotate(degrees)
+            .duration('.1s')
+            .end();
+    };
+
+    goog.events.listen(document, goog.events.EventType.MOUSEMOVE, listener);
+};
+
 /**
  * Initialize the application and kick off animation loops.
  */
@@ -83,6 +132,11 @@ hllwtml5.init = function() {
     };
 
     hllwtml5.wobbleGhostGuy();
-    hllwtml5.goBatty();
-    console.log(goog.dom.getViewportSize());
+    // hllwtml5.goBatty();
+
+    var gun = goog.dom.query('#gun')[0];
+    var crosshair = goog.dom.query('#crosshair')[0];
+
+    console.log(hllwtml5.animation.rotateTowardMouse(gun, 60));
+    hllwtml5.animation.translateToUnderMouse(crosshair);
 };

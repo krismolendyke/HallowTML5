@@ -70,22 +70,70 @@ body {
   -o-background-size: cover;
   background-size: cover;
   background-image: url('../img/background.jpg?1315884264');
+  background-repeat: no-repeat;
+  cursor: none !important;
 }
 
-/* line 8, ../../sass/screen.scss */
+/* line 10, ../../sass/screen.scss */
 #guy, #ghost-guy {
   width: 373px;
   height: 600px;
   position: absolute;
   left: 300px;
+  top: 60px;
 }
 
-/* line 16, ../../sass/screen.scss */
+/* line 19, ../../sass/screen.scss */
 #guy {
   background-image: url('../img/guy.png?1315914348');
 }
 
-/* line 20, ../../sass/screen.scss */
+/* line 23, ../../sass/screen.scss */
 #ghost-guy {
   background-image: url('../img/ghost-guy.png?1315914172');
+}
+
+/* line 27, ../../sass/screen.scss */
+.bat {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  background-image: url('../img/bat.png?1317584752');
+  -moz-background-size: 100px, 100px;
+  -webkit-background-size: 100px, 100px;
+  -o-background-size: 100px, 100px;
+  background-size: 100px, 100px;
+  background-repeat: no-repeat;
+  left: 900px;
+  top: 300px;
+}
+
+/* line 38, ../../sass/screen.scss */
+#crosshair {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  background-image: url('../img/crosshair.png?1318197718');
+  -moz-background-size: 40px, 40px;
+  -webkit-background-size: 40px, 40px;
+  -o-background-size: 40px, 40px;
+  background-size: 40px, 40px;
+  background-repeat: no-repeat;
+  z-index: 1000;
+}
+
+/* line 48, ../../sass/screen.scss */
+#gun {
+  height: 440px;
+  width: 449px;
+  position: absolute;
+  background-image: url('../img/gun.png?1317644778');
+  -moz-background-size: 440px, 449px;
+  -webkit-background-size: 440px, 449px;
+  -o-background-size: 440px, 449px;
+  background-size: 440px, 449px;
+  background-repeat: no-repeat;
+  right: -10px;
+  bottom: -10px;
+  z-index: 100;
 }

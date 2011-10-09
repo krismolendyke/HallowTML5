@@ -1,2 +1,13 @@
 @import "compass/reset";
 @import "compass/css3";
+
+@mixin sprited($image, $height, $width) {
+    height: $height;
+    width: $width;
+
+    position: absolute;
+
+    @include background-image(image-url("#{$image}"));
+    @include background-size($height, $width);
+    background-repeat: no-repeat;
+}

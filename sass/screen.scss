@@ -4,6 +4,7 @@ body {
     @include background-size(cover);
     @include background-image(image-url("background.jpg"));
     background-repeat: no-repeat;
+    cursor: none !important;
 }
 
 #guy, #ghost-guy {
@@ -24,17 +25,35 @@ body {
 }
 
 .bat {
+    $image: "bat.png";
     $height: 100px;
     $width: $height;
 
-    height: $height;
-    width: $width;
+    @include sprited($image, $height, $width);
 
-    position: absolute;
     left: 900px;
     top: 300px;
+}
 
-    @include background-image(image-url("bat.png"));
-    @include background-size($height, $width);
-    background-repeat: no-repeat;
+#crosshair {
+    $image: "crosshair.png";
+    $height: 40px;
+    $width: 40px;
+
+    @include sprited($image, $height, $width);
+
+    z-index: 1000;
+}
+
+#gun {
+    $image: "gun.png";
+    $height: 440px;
+    $width: 449px;
+
+    @include sprited($image, $height, $width);
+
+    right: -10px;
+    bottom: -10px;
+
+    z-index: 100;
 }
