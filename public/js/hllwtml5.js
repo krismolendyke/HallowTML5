@@ -76,13 +76,63 @@ hllwtml5.goBatty = function() {
             .to(x, y)
             .scale(scale)
             .rotate(deg)
-            .ease('cubic-bezier(0,1,100,10)')
+            .ease('cubic-bezier(.2, .4, .6, .2)')
             .duration(duration + 's')
             .then(function() { loop(bat, index, bats, duration); })
             .end();
     };
 
     goog.array.forEach(bats, loop);
+};
+
+/**
+ * Handle a gunshot.
+ *
+ * @param {!goog.events.BrowserEvent} e A browser event.
+ */
+hllwtml5.gunShot = function(e) {
+    var bullet;
+    var bulletVec2;
+    var lowerRight;
+    var shotLoc;
+    var viewportSize;
+
+    shotLoc = new goog.math.Vec2(e.clientX, e.clientY);
+    viewportSize = goog.dom.getViewportSize();
+    lowerRight = new goog.math.Vec2(viewportSize.width, viewportSize.height);
+    bulletVec2 = new goog.math.Vec2.difference(shotLoc, lowerRight);
+
+    bullet = goog.dom.createDom('div', { 'class': 'bullet' });
+    bullet.style.left = viewportSize.width + 'px';
+    bullet.style.top = viewportSize.height + 'px';
+
+    goog.dom.query('body')[0].appendChild(bullet);
+
+    // Give move.js a fraction of time to let appendChild finish.
+    setTimeout(function() {
+        move(bullet)
+            .to(bulletVec2.x - (bullet.clientWidth / 2),
+                bulletVec2.y - (bullet.clientHeight / 2))
+            .scale(.075)
+            .duration(500)
+            .ease('out')
+            .then()
+                .set('opacity', 0)
+                .duration(1000)
+                .then(function() {
+                    goog.dom.removeNode(bullet);
+                })
+                .pop()
+            .end();
+    }, 10);
+};
+
+/**
+ * Fire the gun on mouse movement.
+ */
+hllwtml5.rapidFire = function() {
+    goog.events.listen(document, goog.events.EventType.MOUSEMOVE,
+            hllwtml5.gunShot);
 };
 
 /**
@@ -95,11 +145,13 @@ hllwtml5.init = function() {
     };
 
     hllwtml5.wobbleGhostGuy();
-    // hllwtml5.goBatty();
+    hllwtml5.goBatty();
 
     var gun = goog.dom.query('#gun')[0];
     var crosshair = goog.dom.query('#crosshair')[0];
 
     hllwtml5.animation.rotateTowardMouse(gun, 61);
+    hllwtml5.rapidFire();
+
     hllwtml5.animation.translateToUnderMouse(crosshair);
 };

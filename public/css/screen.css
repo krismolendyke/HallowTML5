@@ -138,3 +138,19 @@ body {
   bottom: -80px;
   z-index: 100;
 }
+
+/* line 62, ../../sass/screen.scss */
+.bullet {
+  position: absolute;
+  height: 90px;
+  width: 90px;
+  -moz-border-radius: 45px;
+  -webkit-border-radius: 45px;
+  -o-border-radius: 45px;
+  -ms-border-radius: 45px;
+  -khtml-border-radius: 45px;
+  border-radius: 45px;
+  background-color: red;
+  border: 1px solid black;
+  z-index: 99;
+}
