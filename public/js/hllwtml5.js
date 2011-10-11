@@ -86,11 +86,11 @@ hllwtml5.goBatty = function() {
 };
 
 /**
- * Handle a gunshot.
+ * Fire a gunshot.
  *
  * @param {!goog.events.BrowserEvent} e A browser event.
  */
-hllwtml5.gunShot = function(e) {
+hllwtml5.gunshot = function(e) {
     var bullet;
     var bulletVec2;
     var lowerRight;
@@ -128,23 +128,11 @@ hllwtml5.gunShot = function(e) {
 };
 
 /**
- * Fire the gun on mouse click.
+ * Fire the gun on mouse down, and mouse down and mouse movement.
+ *
+ * @param {number=} opt_rateOfFire The delay in milliseconds between rounds.
  */
-hllwtml5.singleFire = function() {
-    goog.events.listen(document, goog.events.EventType.CLICK,
-            hllwtml5.gunShot);
-};
-
-/**
- * Fire the gun on mouse movement.
- */
-hllwtml5.rapidFire = function() {
-    /**
-     * @const
-     * @type {number}
-     */
-    var RATE_OF_FIRE = 200;
-
+hllwtml5.bindGunToMouse = function(opt_rateOfFire) {
     var browserEvent;
     var fire;
     var fireId;
@@ -152,10 +140,14 @@ hllwtml5.rapidFire = function() {
     var mouseDownHandler;
     var mouseMoveHandler;
     var mouseUpHandler;
+    var rateOfFire = opt_rateOfFire || 200;
 
+    /**
+     * Fire a gunshot, and schedule the next based on the rate of fire.
+     */
     fire = function() {
-        hllwtml5.gunShot(browserEvent);
-        fireId = setTimeout(fire, RATE_OF_FIRE);
+        hllwtml5.gunshot(browserEvent);
+        fireId = setTimeout(fire, rateOfFire);
     };
 
     /**
@@ -211,12 +203,10 @@ hllwtml5.init = function() {
     hllwtml5.wobbleGhostGuy();
     hllwtml5.goBatty();
 
+    // KRIS: Move to .gun namespace?  Also, gunshot()
     var gun = goog.dom.query('#gun')[0];
     var crosshair = goog.dom.query('#crosshair')[0];
-
     hllwtml5.animation.rotateTowardMouse(gun, 61);
-    hllwtml5.singleFire();
-    hllwtml5.rapidFire();
-
+    hllwtml5.bindGunToMouse();
     hllwtml5.animation.translateToUnderMouse(crosshair);
 };
