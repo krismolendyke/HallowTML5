@@ -136,43 +136,67 @@ hllwtml5.singleFire = function() {
 };
 
 /**
- * True if the mouse is down, false if it is not.
- *
- * @type {!boolean}
- */
-hllwtml5.isMouseDown = false;
-
-/**
  * Fire the gun on mouse movement.
  */
 hllwtml5.rapidFire = function() {
+    /**
+     * @const
+     * @type {number}
+     */
+    var RATE_OF_FIRE = 200;
+
+    var browserEvent;
     var fire;
     var fireId;
+    var isMouseDown = false;
+    var mouseDownHandler;
+    var mouseMoveHandler;
+    var mouseUpHandler;
 
-    fire = function(e) {
-        hllwtml5.gunShot(e);
-        fireId = setTimeout(fire, 200, e);
+    fire = function() {
+        hllwtml5.gunShot(browserEvent);
+        fireId = setTimeout(fire, RATE_OF_FIRE);
+    };
+
+    /**
+     * Update the browser event, begin firing, and set mouse down to true.
+     *
+     * @param {goog.events.BrowserEvent} e A browser event.
+     */
+    mouseDownHandler = function(e) {
+        browserEvent = e;
+        fire();
+        isMouseDown = true;
+    };
+
+    /**
+     * If the mouse is down, update the browser event because the shot must be
+     * moved to a new position.
+     *
+     * @param {goog.events.BrowserEvent} e A browser event.
+     */
+    mouseMoveHandler = function(e) {
+        if (isMouseDown) {
+            browserEvent = e;
+        }
+    };
+
+    /**
+     * Stop firing and set mouse down to false.
+     */
+    mouseUpHandler = function() {
+        clearTimeout(fireId);
+        isMouseDown = false;
     };
 
     goog.events.listen(document, goog.events.EventType.MOUSEDOWN,
-            function(e) {
-                fire(e);
-                hllwtml5.isMouseDown = true;
-            });
+            mouseDownHandler);
 
     goog.events.listen(document, goog.events.EventType.MOUSEUP,
-            function() {
-                clearTimeout(fireId);
-                hllwtml5.isMouseDown = false;
-            });
+            mouseUpHandler);
 
     goog.events.listen(document, goog.events.EventType.MOUSEMOVE,
-            function(e) {
-                clearTimeout(fireId);
-                if (hllwtml5.isMouseDown) {
-                    fire(e);
-                }
-            });
+            mouseMoveHandler);
 };
 
 /**
