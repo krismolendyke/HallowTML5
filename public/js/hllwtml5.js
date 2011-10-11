@@ -128,11 +128,51 @@ hllwtml5.gunShot = function(e) {
 };
 
 /**
+ * Fire the gun on mouse click.
+ */
+hllwtml5.singleFire = function() {
+    goog.events.listen(document, goog.events.EventType.CLICK,
+            hllwtml5.gunShot);
+};
+
+/**
+ * True if the mouse is down, false if it is not.
+ *
+ * @type {!boolean}
+ */
+hllwtml5.isMouseDown = false;
+
+/**
  * Fire the gun on mouse movement.
  */
 hllwtml5.rapidFire = function() {
+    var fire;
+    var fireId;
+
+    fire = function(e) {
+        hllwtml5.gunShot(e);
+        fireId = setTimeout(fire, 200, e);
+    };
+
+    goog.events.listen(document, goog.events.EventType.MOUSEDOWN,
+            function(e) {
+                fire(e);
+                hllwtml5.isMouseDown = true;
+            });
+
+    goog.events.listen(document, goog.events.EventType.MOUSEUP,
+            function() {
+                clearTimeout(fireId);
+                hllwtml5.isMouseDown = false;
+            });
+
     goog.events.listen(document, goog.events.EventType.MOUSEMOVE,
-            hllwtml5.gunShot);
+            function(e) {
+                clearTimeout(fireId);
+                if (hllwtml5.isMouseDown) {
+                    fire(e);
+                }
+            });
 };
 
 /**
@@ -151,6 +191,7 @@ hllwtml5.init = function() {
     var crosshair = goog.dom.query('#crosshair')[0];
 
     hllwtml5.animation.rotateTowardMouse(gun, 61);
+    hllwtml5.singleFire();
     hllwtml5.rapidFire();
 
     hllwtml5.animation.translateToUnderMouse(crosshair);
