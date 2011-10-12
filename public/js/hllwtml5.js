@@ -4,7 +4,7 @@ goog.require('goog.dom');
 goog.require('goog.dom.query');
 goog.require('goog.events');
 goog.require('goog.math.Vec2');
-goog.require('hllwtml5.animation');
+goog.require('hllwtml5.gun');
 
 /**
  * Wobble!
@@ -86,127 +86,18 @@ hllwtml5.goBatty = function() {
 };
 
 /**
- * Fire a gunshot.
- *
- * @param {!goog.events.BrowserEvent} e A browser event.
- */
-hllwtml5.gunshot = function(e) {
-    var bullet;
-    var bulletVec2;
-    var lowerRight;
-    var shotLoc;
-    var viewportSize;
-
-    shotLoc = new goog.math.Vec2(e.clientX, e.clientY);
-    viewportSize = goog.dom.getViewportSize();
-    lowerRight = new goog.math.Vec2(viewportSize.width, viewportSize.height);
-    bulletVec2 = new goog.math.Vec2.difference(shotLoc, lowerRight);
-
-    bullet = goog.dom.createDom('div', { 'class': 'bullet' });
-    bullet.style.left = viewportSize.width + 'px';
-    bullet.style.top = viewportSize.height + 'px';
-
-    goog.dom.query('body')[0].appendChild(bullet);
-
-    // Give move.js a fraction of time to let appendChild finish.
-    setTimeout(function() {
-        move(bullet)
-            .to(bulletVec2.x - (bullet.clientWidth / 2),
-                bulletVec2.y - (bullet.clientHeight / 2))
-            .scale(.075)
-            .duration(500)
-            .ease('out')
-            .then()
-                .set('opacity', 0)
-                .duration(1000)
-                .then(function() {
-                    goog.dom.removeNode(bullet);
-                })
-                .pop()
-            .end();
-    }, 10);
-};
-
-/**
- * Fire the gun on mouse down, and mouse down and mouse movement.
- *
- * @param {number=} opt_rateOfFire The delay in milliseconds between rounds.
- */
-hllwtml5.bindGunToMouse = function(opt_rateOfFire) {
-    var browserEvent;
-    var fire;
-    var fireId;
-    var isMouseDown = false;
-    var mouseDownHandler;
-    var mouseMoveHandler;
-    var mouseUpHandler;
-    var rateOfFire = opt_rateOfFire || 200;
-
-    /**
-     * Fire a gunshot, and schedule the next based on the rate of fire.
-     */
-    fire = function() {
-        hllwtml5.gunshot(browserEvent);
-        fireId = setTimeout(fire, rateOfFire);
-    };
-
-    /**
-     * Update the browser event, begin firing, and set mouse down to true.
-     *
-     * @param {goog.events.BrowserEvent} e A browser event.
-     */
-    mouseDownHandler = function(e) {
-        browserEvent = e;
-        fire();
-        isMouseDown = true;
-    };
-
-    /**
-     * If the mouse is down, update the browser event because the shot must be
-     * moved to a new position.
-     *
-     * @param {goog.events.BrowserEvent} e A browser event.
-     */
-    mouseMoveHandler = function(e) {
-        if (isMouseDown) {
-            browserEvent = e;
-        }
-    };
-
-    /**
-     * Stop firing and set mouse down to false.
-     */
-    mouseUpHandler = function() {
-        clearTimeout(fireId);
-        isMouseDown = false;
-    };
-
-    goog.events.listen(document, goog.events.EventType.MOUSEDOWN,
-            mouseDownHandler);
-
-    goog.events.listen(document, goog.events.EventType.MOUSEUP,
-            mouseUpHandler);
-
-    goog.events.listen(document, goog.events.EventType.MOUSEMOVE,
-            mouseMoveHandler);
-};
-
-/**
- * Initialize the application and kick off animation loops.
+ * Initialize the application, bind the mouse and kick off animation loops.
  */
 hllwtml5.init = function() {
+    var crosshair;
+    var gun;
+
     // Tell move.js to use goog.dom.query for DOM selection.
     move.select = function(selector, scope) {
         return goog.dom.query(selector, scope)[0];
     };
 
+    hllwtml5.gun.init();
     hllwtml5.wobbleGhostGuy();
     hllwtml5.goBatty();
-
-    // KRIS: Move to .gun namespace?  Also, gunshot()
-    var gun = goog.dom.query('#gun')[0];
-    var crosshair = goog.dom.query('#crosshair')[0];
-    hllwtml5.animation.rotateTowardMouse(gun, 61);
-    hllwtml5.bindGunToMouse();
-    hllwtml5.animation.translateToUnderMouse(crosshair);
 };
