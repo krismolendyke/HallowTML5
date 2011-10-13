@@ -155,7 +155,13 @@ body {
   z-index: 99;
 }
 
-/* line 76, ../../sass/screen.scss */
-.enemy.hit {
-  border: 1px solid red;
+/* line 75, ../../sass/screen.scss */
+.hit {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px;
+  background-color: red;
 }

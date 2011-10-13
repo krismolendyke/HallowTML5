@@ -76,7 +76,7 @@ hllwtml5.goBatty = function() {
             .to(x, y)
             .scale(scale)
             .rotate(deg)
-            .ease('cubic-bezier(.2, .4, .6, .2)')
+            // .ease('cubic-bezier(.2, .4, .6, .2)')
             .duration(duration + 's')
             .then(function() { loop(bat, index, bats, duration); })
             .end();

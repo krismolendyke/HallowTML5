@@ -72,8 +72,7 @@ body {
     z-index: 99;
 }
 
-.enemy {
-    &.hit {
-        border: 1px solid red;
-    }
+.hit {
+    @include border-radius(10px);
+    background-color: red;
 }

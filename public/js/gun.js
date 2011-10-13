@@ -6,11 +6,16 @@ goog.require('goog.dom.query');
 goog.require('goog.events');
 goog.require('goog.math.Rect');
 goog.require('goog.math.Vec2');
+goog.require('goog.style');
 goog.require('hllwtml5.animation');
 
+/**
+ * Perform simple hit detection.
+ *
+ * @param {!Element} bullet The bullet that the gun shot.
+ * @param {!goog.math.Vec2} shotLoc The gun shot location.
+ */
 hllwtml5.gun.hitDetection = function(bullet, shotLoc) {
-    console.group('hitDetection');
-
     var bulletRect;
     var enemies;
     var enemy;
@@ -21,17 +26,21 @@ hllwtml5.gun.hitDetection = function(bullet, shotLoc) {
 
     for (var i = 0, len = enemies.length; i < len; i += 1) {
         enemy = enemies[i];
-        enemyRect = new goog.math.Rect(
-                enemy.offsetLeft,
-                enemy.offsetTop,
-                enemy.offsetWidth,
-                enemy.offsetHeight);
+        enemyRect = goog.style.getBounds(enemy);
         if (enemyRect.contains(bulletRect)) {
+            goog.dom.classes.remove(enemy, 'enemy');
             goog.dom.classes.add(enemy, 'hit');
+            (function(enemy) {
+                move(enemy)
+                    .set('opacity', 0)
+                    .duration(500)
+                    .then(function() {
+                        goog.dom.removeNode(enemy);
+                    })
+                    .end();
+            } (enemy));
         }
     }
-
-    console.groupEnd();
 };
 
 /**
@@ -65,13 +74,13 @@ hllwtml5.gun.shoot = function(e) {
             .scale(.075)
             .duration(500)
             .ease('out')
+            .then(function() {
+                hllwtml5.gun.hitDetection(bullet, shotLoc);
+                goog.dom.removeNode(bullet);
+            })
             .then()
                 .set('opacity', 0)
                 .duration(1000)
-                .then(function() {
-                    hllwtml5.gun.hitDetection(bullet, shotLoc);
-                    goog.dom.removeNode(bullet);
-                })
                 .pop()
             .end();
     }, 10);
