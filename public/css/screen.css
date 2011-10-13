@@ -154,3 +154,8 @@ body {
   border: 1px solid black;
   z-index: 99;
 }
+
+/* line 76, ../../sass/screen.scss */
+.enemy.hit {
+  border: 1px solid red;
+}

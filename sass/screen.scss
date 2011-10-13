@@ -71,3 +71,9 @@ body {
 
     z-index: 99;
 }
+
+.enemy {
+    &.hit {
+        border: 1px solid red;
+    }
+}

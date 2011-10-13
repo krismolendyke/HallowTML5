@@ -1,10 +1,38 @@
 goog.provide('hllwtml5.gun');
 
 goog.require('goog.dom');
+goog.require('goog.dom.classes');
 goog.require('goog.dom.query');
 goog.require('goog.events');
+goog.require('goog.math.Rect');
 goog.require('goog.math.Vec2');
 goog.require('hllwtml5.animation');
+
+hllwtml5.gun.hitDetection = function(bullet, shotLoc) {
+    console.group('hitDetection');
+
+    var bulletRect;
+    var enemies;
+    var enemy;
+    var enemyRect;
+
+    bulletRect = new goog.math.Rect(shotLoc.x, shotLoc.y, 10, 10);
+    enemies = goog.dom.query('.enemy');
+
+    for (var i = 0, len = enemies.length; i < len; i += 1) {
+        enemy = enemies[i];
+        enemyRect = new goog.math.Rect(
+                enemy.offsetLeft,
+                enemy.offsetTop,
+                enemy.offsetWidth,
+                enemy.offsetHeight);
+        if (enemyRect.contains(bulletRect)) {
+            goog.dom.classes.add(enemy, 'hit');
+        }
+    }
+
+    console.groupEnd();
+};
 
 /**
  * Fire a gunshot.
@@ -41,6 +69,7 @@ hllwtml5.gun.shoot = function(e) {
                 .set('opacity', 0)
                 .duration(1000)
                 .then(function() {
+                    hllwtml5.gun.hitDetection(bullet, shotLoc);
                     goog.dom.removeNode(bullet);
                 })
                 .pop()
