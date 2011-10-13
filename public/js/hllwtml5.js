@@ -97,7 +97,13 @@ hllwtml5.init = function() {
         return goog.dom.query(selector, scope)[0];
     };
 
-    hllwtml5.gun.init();
+    gun = goog.dom.query('#gun')[0];
+    crosshair = goog.dom.query('#crosshair')[0];
+
+    if (gun && crosshair) {
+        hllwtml5.gun.init(gun, 61, crosshair);
+    }
+
     hllwtml5.wobbleGhostGuy();
     hllwtml5.goBatty();
 };

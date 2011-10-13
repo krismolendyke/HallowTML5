@@ -115,21 +115,14 @@ hllwtml5.gun.bindToMouse = function(opt_rateOfFire) {
 /**
  * Initialize the gun.  Bind it to the mouse for rotation and shooting.
  *
- * @param {Element=} opt_gun A gun element.
- * @param {number=} opt_gunAngleOffset An angle to offset the gun element
+ * @param {!Element} gun A gun element.
+ * @param {!number} gunAngleOffset An angle to offset the gun element
  *     rotation by.  This is used to align the barrel of the gun to point at
  *     the crosshair (mouse).
- * @param {Element=} opt_crosshair A crosshair element.
+ * @param {!Element} crosshair A crosshair element.
  */
-hllwtml5.gun.init = function(opt_gun, opt_gunAngleOffset, opt_crosshair) {
-    var crosshair = opt_crosshair || goog.dom.query('#crosshair')[0];
-    var gun = opt_gun || goog.dom.query('#gun')[0];
-    var gunAngleOffset = opt_gunAngleOffset || 61;
-
-    if (gun && crosshair) {
-        hllwtml5.animation.rotateTowardMouse(gun, gunAngleOffset);
-        hllwtml5.gun.bindToMouse();
-
-        hllwtml5.animation.translateToUnderMouse(crosshair);
-    }
+hllwtml5.gun.init = function(gun, gunAngleOffset, crosshair) {
+    hllwtml5.animation.rotateTowardMouse(gun, gunAngleOffset);
+    hllwtml5.gun.bindToMouse();
+    hllwtml5.animation.translateToUnderMouse(crosshair);
 };
