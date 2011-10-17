@@ -51,18 +51,16 @@ hllwtml5.gun.hitDetection = function(bullet, shotLoc) {
 hllwtml5.gun.shoot = function(e) {
     var bullet;
     var bulletVec2;
-    var lowerRight;
+    var gunCenter;
     var shotLoc;
-    var viewportSize;
 
     shotLoc = new goog.math.Vec2(e.clientX, e.clientY);
-    viewportSize = goog.dom.getViewportSize();
-    lowerRight = new goog.math.Vec2(viewportSize.width, viewportSize.height);
-    bulletVec2 = new goog.math.Vec2.difference(shotLoc, lowerRight);
+    gunCenter = hllwtml5.animation.getOffsetCenter(goog.dom.query('#gun')[0]);
+    bulletVec2 = new goog.math.Vec2.difference(shotLoc, gunCenter);
 
     bullet = goog.dom.createDom('div', { 'class': 'bullet' });
-    bullet.style.left = viewportSize.width + 'px';
-    bullet.style.top = viewportSize.height + 'px';
+    bullet.style.left = gunCenter.x + 'px';
+    bullet.style.top = gunCenter.y + 'px';
 
     goog.dom.query('body')[0].appendChild(bullet);
 
