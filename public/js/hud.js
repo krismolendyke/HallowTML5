@@ -56,9 +56,15 @@ hllwtml5.hud.updateEnemiesKilled = function(count) {
  */
 hllwtml5.hud.updateAccuracy = function() {
     var accuracy = 0;
+    var enemiesKilled = 0;
+    var rounds = 0;
 
-    if (hllwtml5.gun.rounds !== 0) {
-        accuracy = (hllwtml5.gun.enemiesKilled / hllwtml5.gun.rounds) * 100;
+    enemiesKilled =
+            parseInt(goog.dom.getTextContent(hllwtml5.hud.enemiesKilled), 10);
+    rounds = parseInt(goog.dom.getTextContent(hllwtml5.hud.rounds), 10);
+
+    if (!isNaN(enemiesKilled) && !isNaN(rounds) && rounds !== 0) {
+        accuracy = (enemiesKilled / rounds) * 100;
     }
 
     goog.dom.setTextContent(hllwtml5.hud.accuracy, accuracy.toFixed(1) + '%');

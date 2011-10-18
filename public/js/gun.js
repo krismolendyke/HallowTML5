@@ -8,7 +8,6 @@ goog.require('goog.math.Rect');
 goog.require('goog.math.Vec2');
 goog.require('goog.style');
 goog.require('hllwtml5.animation');
-goog.require('hllwtml5.hud');
 
 /**
  * The number of rounds fired.
