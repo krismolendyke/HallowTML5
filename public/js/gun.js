@@ -88,6 +88,7 @@ hllwtml5.gun.shoot = function(e) {
  * Fire the gun on mouse down, and mouse down and mouse movement.
  *
  * @param {number=} opt_rateOfFire The delay in milliseconds between rounds.
+ *    Defaults to five rounds per second.
  */
 hllwtml5.gun.bindToMouse = function(opt_rateOfFire) {
     var browserEvent;

@@ -65,10 +65,10 @@ hllwtml5.animation.rotateTowardMouse = function(el, opt_angleOffset) {
     var rotationCount = 0;
 
     /**
-     * Increment or decrement the rotation count basedon the difference
+     * Increment or decrement the rotation count based on the difference
      * between the current and previous angle of rotation.  A large difference
-     * near 360 degrees indicates that the element has just completed a full
-     * rotation.
+     * greater than degrees indicates that the element has just completed a
+     * full rotation.
      *
      * @param {!number} angle The current angle of rotation.
      * @param {!number} previousAngle The previous angle of rotation.
