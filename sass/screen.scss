@@ -1,5 +1,9 @@
 @import "base";
 
+::selection {
+    background-color: transparent;
+}
+
 body {
     @include background-size(cover);
     @include background-image(image-url("background.jpg"));
@@ -75,4 +79,23 @@ body {
 .hit {
     @include border-radius(10px);
     background-color: red;
+}
+
+#hud {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.5em;
+
+    table {
+        @include table-scaffolding;
+        td:nth-child(2) {
+            font-size: 1.5em;
+        }
+    }
+
+    @include border-radius(10px);
+    @include single-box-shadow;
 }

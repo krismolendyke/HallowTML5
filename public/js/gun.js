@@ -8,6 +8,21 @@ goog.require('goog.math.Rect');
 goog.require('goog.math.Vec2');
 goog.require('goog.style');
 goog.require('hllwtml5.animation');
+goog.require('hllwtml5.hud');
+
+/**
+ * The number of rounds fired.
+ *
+ * @type {number}
+ */
+hllwtml5.gun.rounds = 0;
+
+/**
+ * The number of enemies hit.
+ *
+ * @type {number}
+ */
+hllwtml5.gun.enemiesKilled = 0;
 
 /**
  * Perform simple hit detection.
@@ -30,6 +45,7 @@ hllwtml5.gun.hitDetection = function(bullet, shotLoc) {
         if (enemyRect.contains(bulletRect)) {
             goog.dom.classes.remove(enemy, 'enemy');
             goog.dom.classes.add(enemy, 'hit');
+
             (function(enemy) {
                 move(enemy)
                     .set('opacity', 0)
@@ -39,6 +55,10 @@ hllwtml5.gun.hitDetection = function(bullet, shotLoc) {
                     })
                     .end();
             } (enemy));
+
+            hllwtml5.gun.enemiesKilled += 1;
+            hllwtml5.pubsub.publish('enemiesKilledChange',
+                    hllwtml5.gun.enemiesKilled);
         }
     }
 };
@@ -75,6 +95,8 @@ hllwtml5.gun.shoot = function(e) {
             .then(function() {
                 hllwtml5.gun.hitDetection(bullet, shotLoc);
                 goog.dom.removeNode(bullet);
+                hllwtml5.gun.rounds += 1;
+                hllwtml5.pubsub.publish('roundsChange', hllwtml5.gun.rounds);
             })
             .then()
                 .set('opacity', 0)

@@ -4,7 +4,9 @@ goog.require('goog.dom');
 goog.require('goog.dom.query');
 goog.require('goog.events');
 goog.require('goog.math.Vec2');
+goog.require('goog.pubsub.PubSub');
 goog.require('hllwtml5.gun');
+goog.require('hllwtml5.hud');
 
 /**
  * Wobble!
@@ -86,6 +88,13 @@ hllwtml5.goBatty = function() {
 };
 
 /**
+ * The application-wide event publication and subscription channel.
+ *
+ * @type {goog.pubsub.PubSub}
+ */
+hllwtml5.pubsub;
+
+/**
  * Initialize the application, bind the mouse and kick off animation loops.
  */
 hllwtml5.init = function() {
@@ -97,10 +106,13 @@ hllwtml5.init = function() {
         return goog.dom.query(selector, scope)[0];
     };
 
+    hllwtml5.pubsub = new goog.pubsub.PubSub();
+
     gun = goog.dom.query('#gun')[0];
     crosshair = goog.dom.query('#crosshair')[0];
 
     if (gun && crosshair) {
+        hllwtml5.hud.init();
         hllwtml5.gun.init(gun, 61, crosshair);
     }
 
