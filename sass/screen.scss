@@ -91,6 +91,10 @@ body {
 
     table {
         @include table-scaffolding;
+        td:nth-child(1) {
+            text-align: right;
+            padding-right: 0.5em;
+        }
         td:nth-child(2) {
             font-size: 1.5em;
         }
