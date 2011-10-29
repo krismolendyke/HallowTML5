@@ -5,51 +5,10 @@ goog.require('goog.dom.query');
 goog.require('goog.events');
 goog.require('goog.math.Vec2');
 goog.require('goog.pubsub.PubSub');
+goog.require('hllwtml5.common');
 goog.require('hllwtml5.gun');
 goog.require('hllwtml5.hud');
-
-/**
- * Wobble!
- */
-hllwtml5.wobbleGhostGuy = function() {
-    move('#ghost-guy')
-        .duration('.5s')
-        .ease('snap')
-        .skew(hllwtml5.randomInteger(5, true))
-        .end(hllwtml5.unwobbleGhostGuy);
-};
-
-/**
- * Unwobble!
- */
-hllwtml5.unwobbleGhostGuy = function() {
-    move('#ghost-guy')
-        .duration('.1s')
-        .ease('snap')
-        .skew(0)
-        .then(hllwtml5.wobbleGhostGuy)
-        .end();
-};
-
-/**
- * Generate a random integer between 0 and the given maximum.  If opt_negate
- * is specified, the generated integer will randomly be negated.
- *
- * @param {number} max The maximum inclusive value of the random range.
- * @param {boolean=} opt_negate True: randomly negate the value.  Defaults to
- *     False.
- * @return {number} A random integer.
- */
-hllwtml5.randomInteger = function(max, opt_negate) {
-    var random = Math.random() * max | 0;
-    var negate = opt_negate || false;
-
-    if (negate && Math.random() <= Math.random()) {
-        random = -1 * random;
-    }
-
-    return random;
-};
+goog.require('hllwtml5.zombie');
 
 /**
  * Batshit!
@@ -68,11 +27,11 @@ hllwtml5.goBatty = function() {
      *    Defaults to a random integer.
      */
     loop = function(bat, index, bats, opt_duration) {
-        var deg = hllwtml5.randomInteger(60, true);
-        var duration = opt_duration || hllwtml5.randomInteger(3);
+        var deg = hllwtml5.common.randomInteger(60, true);
+        var duration = opt_duration || hllwtml5.common.randomInteger(3);
         var scale = Math.random();
-        var x = hllwtml5.randomInteger(300, true);
-        var y = hllwtml5.randomInteger(300, true);
+        var x = hllwtml5.common.randomInteger(600, true);
+        var y = hllwtml5.common.randomInteger(600, true);
 
         move(bat)
             .to(x, y)
@@ -100,6 +59,7 @@ hllwtml5.pubsub;
 hllwtml5.init = function() {
     var crosshair;
     var gun;
+    var zombie;
 
     // Tell move.js to use goog.dom.query for DOM selection.
     move.select = function(selector, scope) {
@@ -107,6 +67,12 @@ hllwtml5.init = function() {
     };
 
     hllwtml5.pubsub = new goog.pubsub.PubSub();
+
+    zombie = goog.dom.query('#zombie')[0];
+
+    if (zombie) {
+        hllwtml5.zombie.init(zombie);
+    }
 
     gun = goog.dom.query('#gun')[0];
     crosshair = goog.dom.query('#crosshair')[0];
@@ -116,6 +82,5 @@ hllwtml5.init = function() {
         hllwtml5.gun.init(gun, 61, crosshair);
     }
 
-    hllwtml5.wobbleGhostGuy();
     hllwtml5.goBatty();
 };

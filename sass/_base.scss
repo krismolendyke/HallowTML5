@@ -1,5 +1,6 @@
-@import "compass/reset";
 @import "compass/css3";
+@import "compass/reset";
+@import "compass/utilities/general/min";
 @import "compass/utilities/tables/scaffolding";
 
 @mixin sprited($image, $height, $width) {

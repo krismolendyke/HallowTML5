@@ -63,115 +63,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 3, ../../sass/screen.scss */
-::selection {
-  background-color: transparent;
-}
-
-/* line 7, ../../sass/screen.scss */
-body {
-  -moz-background-size: cover;
-  -webkit-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-image: url('../img/background.jpg?1315884264');
-  background-repeat: no-repeat;
-  cursor: none !important;
-  overflow: hidden;
-}
-
-/* line 15, ../../sass/screen.scss */
-#guy, #ghost-guy {
-  width: 373px;
-  height: 600px;
-  position: absolute;
-  left: 300px;
-  top: 60px;
-}
-
-/* line 24, ../../sass/screen.scss */
-#guy {
-  background-image: url('../img/guy.png?1315914348');
-}
-
-/* line 28, ../../sass/screen.scss */
-#ghost-guy {
-  background-image: url('../img/ghost-guy.png?1315914172');
-}
-
-/* line 32, ../../sass/screen.scss */
-.bat {
-  height: 100px;
-  width: 100px;
-  position: absolute;
-  background-image: url('../img/bat.png?1317584752');
-  -moz-background-size: 100px, 100px;
-  -webkit-background-size: 100px, 100px;
-  -o-background-size: 100px, 100px;
-  background-size: 100px, 100px;
-  background-repeat: no-repeat;
-  left: 900px;
-  top: 300px;
-}
-
-/* line 43, ../../sass/screen.scss */
-#crosshair {
-  height: 40px;
-  width: 40px;
-  position: absolute;
-  background-image: url('../img/crosshair.png?1318198207');
-  -moz-background-size: 40px, 40px;
-  -webkit-background-size: 40px, 40px;
-  -o-background-size: 40px, 40px;
-  background-size: 40px, 40px;
-  background-repeat: no-repeat;
-  z-index: 1000;
-}
-
-/* line 53, ../../sass/screen.scss */
-#gun {
-  height: 440px;
-  width: 449px;
-  position: absolute;
-  background-image: url('../img/gun.png?1317644778');
-  -moz-background-size: 440px, 449px;
-  -webkit-background-size: 440px, 449px;
-  -o-background-size: 440px, 449px;
-  background-size: 440px, 449px;
-  background-repeat: no-repeat;
-  right: -80px;
-  bottom: -80px;
-  z-index: 100;
-}
-
-/* line 66, ../../sass/screen.scss */
-.bullet {
-  position: absolute;
-  height: 90px;
-  width: 90px;
-  -moz-border-radius: 45px;
-  -webkit-border-radius: 45px;
-  -o-border-radius: 45px;
-  -ms-border-radius: 45px;
-  -khtml-border-radius: 45px;
-  border-radius: 45px;
-  background-color: red;
-  border: 1px solid black;
-  z-index: 99;
-}
-
-/* line 79, ../../sass/screen.scss */
-.hit {
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -o-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -khtml-border-radius: 10px;
-  border-radius: 10px;
-  background-color: red;
-}
-
-/* line 84, ../../sass/screen.scss */
+/* line 1, ../../sass/_hud.scss */
 #hud {
   position: absolute;
   top: 10px;
@@ -179,6 +71,9 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
   color: rgba(255, 255, 255, 0.8);
   padding: 0.5em;
+  min-width: 230px;
+  width: auto !important;
+  width: 230px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   -o-border-radius: 10px;
@@ -205,12 +100,119 @@ body {
 #hud table th.numeric {
   text-align: right;
 }
-/* line 94, ../../sass/screen.scss */
+/* line 13, ../../sass/_hud.scss */
 #hud table td:nth-child(1) {
   text-align: right;
   padding-right: 0.5em;
 }
-/* line 98, ../../sass/screen.scss */
+/* line 17, ../../sass/_hud.scss */
 #hud table td:nth-child(2) {
   font-size: 1.5em;
+}
+
+/* line 1, ../../sass/_gun.scss */
+#crosshair {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  background-image: url('../img/crosshair.png?1318198207');
+  -moz-background-size: 40px, 40px;
+  -webkit-background-size: 40px, 40px;
+  -o-background-size: 40px, 40px;
+  background-size: 40px, 40px;
+  background-repeat: no-repeat;
+  z-index: 1000;
+}
+
+/* line 9, ../../sass/_gun.scss */
+#gun {
+  height: 440px;
+  width: 449px;
+  position: absolute;
+  background-image: url('../img/gun.png?1317644778');
+  -moz-background-size: 440px, 449px;
+  -webkit-background-size: 440px, 449px;
+  -o-background-size: 440px, 449px;
+  background-size: 440px, 449px;
+  background-repeat: no-repeat;
+  right: -80px;
+  bottom: -80px;
+  z-index: 100;
+}
+
+/* line 19, ../../sass/_gun.scss */
+.bullet {
+  position: absolute;
+  height: 90px;
+  width: 90px;
+  -moz-border-radius: 45px;
+  -webkit-border-radius: 45px;
+  -o-border-radius: 45px;
+  -ms-border-radius: 45px;
+  -khtml-border-radius: 45px;
+  border-radius: 45px;
+  background-color: red;
+  border: 1px solid black;
+  z-index: 99;
+}
+
+/* line 5, ../../sass/screen.scss */
+::selection {
+  background-color: transparent;
+}
+
+/* line 9, ../../sass/screen.scss */
+body {
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-image: url('../img/background.jpg?1319908478');
+  background-repeat: no-repeat;
+  overflow: hidden;
+  background-color: gray;
+  cursor: none !important;
+  font-family: "Wallpoet";
+}
+
+/* line 19, ../../sass/screen.scss */
+#zombie {
+  height: 600px;
+  width: 373px;
+  position: absolute;
+  background-image: url('../img/guy.png');
+  -moz-background-size: 600px, 373px;
+  -webkit-background-size: 600px, 373px;
+  -o-background-size: 600px, 373px;
+  background-size: 600px, 373px;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 300px;
+  top: 60px;
+}
+
+/* line 29, ../../sass/screen.scss */
+.bat {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  background-image: url('../img/bat.png?1317584752');
+  -moz-background-size: 100px, 100px;
+  -webkit-background-size: 100px, 100px;
+  -o-background-size: 100px, 100px;
+  background-size: 100px, 100px;
+  background-repeat: no-repeat;
+  left: 50%;
+  top: 50%;
+}
+
+/* line 38, ../../sass/screen.scss */
+.hit {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px;
+  background-color: red;
 }

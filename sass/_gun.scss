@@ -1,0 +1,27 @@
+#crosshair {
+    $image: "crosshair.png";
+    $height: 40px;
+    $width: 40px;
+    @include sprited($image, $height, $width);
+    z-index: 1000;
+}
+
+#gun {
+    $image: "gun.png";
+    $height: 440px;
+    $width: 449px;
+    @include sprited($image, $height, $width);
+    right: -80px;
+    bottom: -80px;
+    z-index: 100;
+}
+
+.bullet {
+    position: absolute;
+    height: 90px;
+    width: 90px;
+    @include border-radius(45px);
+    background-color: red;
+    border: 1px solid black;
+    z-index: 99;
+}

@@ -1,4 +1,6 @@
 @import "base";
+@import "hud";
+@import "gun";
 
 ::selection {
     background-color: transparent;
@@ -8,98 +10,32 @@ body {
     @include background-size(cover);
     @include background-image(image-url("background.jpg"));
     background-repeat: no-repeat;
-    cursor: none !important;
     overflow: hidden;
+    background-color: gray;
+    cursor: none !important;
+    font-family: "Wallpoet";
 }
 
-#guy, #ghost-guy {
-    width: 373px;
-    height: 600px;
-
+#zombie {
+    $image: "guy.png";
+    $height: 600px;
+    $width: 373px;
+    @include sprited($image, $height, $width);
     position: absolute;
     left: 300px;
     top: 60px;
-}
-
-#guy {
-    @include background-image(image-url("guy.png"));
-}
-
-#ghost-guy {
-    @include background-image(image-url("ghost-guy.png"));
 }
 
 .bat {
     $image: "bat.png";
     $height: 100px;
     $width: $height;
-
     @include sprited($image, $height, $width);
-
-    left: 900px;
-    top: 300px;
-}
-
-#crosshair {
-    $image: "crosshair.png";
-    $height: 40px;
-    $width: 40px;
-
-    @include sprited($image, $height, $width);
-
-    z-index: 1000;
-}
-
-#gun {
-    $image: "gun.png";
-    $height: 440px;
-    $width: 449px;
-
-    @include sprited($image, $height, $width);
-
-    right: -80px;
-    bottom: -80px;
-
-    z-index: 100;
-}
-
-.bullet {
-    position: absolute;
-
-    height: 90px;
-    width: 90px;
-    @include border-radius(45px);
-
-    background-color: red;
-    border: 1px solid black;
-
-    z-index: 99;
+    left: 50%;
+    top: 50%;
 }
 
 .hit {
     @include border-radius(10px);
     background-color: red;
-}
-
-#hud {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: rgba(255, 255, 255, 0.8);
-    padding: 0.5em;
-
-    table {
-        @include table-scaffolding;
-        td:nth-child(1) {
-            text-align: right;
-            padding-right: 0.5em;
-        }
-        td:nth-child(2) {
-            font-size: 1.5em;
-        }
-    }
-
-    @include border-radius(10px);
-    @include single-box-shadow;
 }
