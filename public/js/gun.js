@@ -160,14 +160,17 @@ hllwtml5.gun.bindToMouse = function(opt_rateOfFire) {
         isMouseDown = false;
     };
 
-    goog.events.listen(document, goog.events.EventType.MOUSEDOWN,
-            mouseDownHandler);
+    goog.events.listen(document, [goog.events.EventType.TOUCHSTART,
+                goog.events.EventType.MOUSEDOWN],
+                        mouseDownHandler);
 
-    goog.events.listen(document, goog.events.EventType.MOUSEUP,
-            mouseUpHandler);
+    goog.events.listen(document, [goog.events.EventType.TOUCHSTART,
+                goog.events.EventType.MOUSEUP],
+                        mouseUpHandler);
 
-    goog.events.listen(document, goog.events.EventType.MOUSEMOVE,
-            mouseMoveHandler);
+    goog.events.listen(document, [goog.events.EventType.TOUCHMOVE,
+                goog.events.EventType.MOUSEMOVE],
+                        mouseMoveHandler);
 };
 
 /**
