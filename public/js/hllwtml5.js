@@ -54,6 +54,62 @@ hllwtml5.goBatty = function() {
 hllwtml5.pubsub;
 
 /**
+ * Screwing around with some 3D rendering.
+ */
+hllwtml5.cubicvr = function() {
+    console.group('hllwtml5.cubicvr');
+
+    CubicVR.start('auto', function(gl, canvas) {
+        // Add a box to mesh, size 1.0, apply material and UV parameters
+        var boxMesh = new CubicVR.Mesh({
+            primitive: {
+                type: "box",
+                size: 1.0,
+                material: {
+                    textures: {
+                    }
+                },
+                uv: {
+                    projectionMode: "cubic",
+                    scale: [1, 1, 1]
+                }
+            },
+            compile: true
+        });
+
+        // New scene with our canvas dimensions and default camera with FOV 80
+        var scene = new CubicVR.Scene(canvas.width, canvas.height, 80);
+
+        // SceneObject container for the mesh
+        var boxObject = new CubicVR.SceneObject(boxMesh);
+
+        // Add SceneObject containing the mesh to the scene
+        scene.bind(boxObject);
+
+        // set initial camera position and target
+        scene.camera.position = [1, 1, 1];
+        scene.camera.target = [0, 0, 0];
+
+        // Add our scene to the window resize list
+        CubicVR.addResizeable(scene);
+
+        // Start our main drawing loop, it provides a timer and the gl context as parameters
+        CubicVR.MainLoop(function(timer, gl) {
+            scene.render();
+        });
+
+        scene.setSkyBox(new CubicVR.SkyBox({
+           texture: "img/space-skybox.jpg"
+        }));
+
+        // initialize a mouse view controller
+        mvc = new CubicVR.MouseViewController(canvas, scene.camera);
+    });
+
+    console.groupEnd();
+};
+
+/**
  * Initialize the application, bind the mouse and kick off animation loops.
  */
 hllwtml5.init = function() {
@@ -79,8 +135,10 @@ hllwtml5.init = function() {
 
     if (gun && crosshair) {
         hllwtml5.hud.init();
-        hllwtml5.gun.init(gun, 61, crosshair);
+        // hllwtml5.gun.init(gun, 61, crosshair);
     }
 
-    hllwtml5.goBatty();
+    // hllwtml5.goBatty();
+
+    hllwtml5.cubicvr();
 };
