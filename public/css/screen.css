@@ -71,9 +71,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background-color: rgba(0, 0, 0, 0.8);
   color: rgba(255, 255, 255, 0.8);
   padding: 0.5em;
-  min-width: 230px;
+  min-width: 300px;
   width: auto !important;
-  width: 230px;
+  width: 300px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   -o-border-radius: 10px;
@@ -115,7 +115,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   height: 40px;
   width: 40px;
   position: absolute;
-  background-image: url('../img/crosshair.png?1318198207');
+  background-image: url('../img/crosshair.png?1319909810');
   -moz-background-size: 40px, 40px;
   -webkit-background-size: 40px, 40px;
   -o-background-size: 40px, 40px;
@@ -129,7 +129,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   height: 440px;
   width: 449px;
   position: absolute;
-  background-image: url('../img/gun.png?1317644778');
+  background-image: url('../img/gun.png?1319909810');
   -moz-background-size: 440px, 449px;
   -webkit-background-size: 440px, 449px;
   -o-background-size: 440px, 449px;
@@ -163,11 +163,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 /* line 9, ../../sass/screen.scss */
 body {
-  -moz-background-size: cover;
-  -webkit-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-image: url('../img/background.jpg?1319908478');
+  -moz-background-size: 150%;
+  -webkit-background-size: 150%;
+  -o-background-size: 150%;
+  background-size: 150%;
+  background-image: url('../img/background.jpg?1319909810');
   background-repeat: no-repeat;
   overflow: hidden;
   background-color: gray;
@@ -176,37 +176,21 @@ body {
 }
 
 /* line 19, ../../sass/screen.scss */
-#zombie {
-  height: 600px;
-  width: 373px;
-  position: absolute;
-  background-image: url('../img/guy.png');
-  -moz-background-size: 600px, 373px;
-  -webkit-background-size: 600px, 373px;
-  -o-background-size: 600px, 373px;
-  background-size: 600px, 373px;
-  background-repeat: no-repeat;
-  position: absolute;
-  left: 300px;
-  top: 60px;
-}
-
-/* line 29, ../../sass/screen.scss */
 .bat {
-  height: 100px;
-  width: 100px;
+  height: 175px;
+  width: 175px;
   position: absolute;
-  background-image: url('../img/bat.png?1317584752');
-  -moz-background-size: 100px, 100px;
-  -webkit-background-size: 100px, 100px;
-  -o-background-size: 100px, 100px;
-  background-size: 100px, 100px;
+  background-image: url('../img/bat.png?1319909578');
+  -moz-background-size: 175px, 175px;
+  -webkit-background-size: 175px, 175px;
+  -o-background-size: 175px, 175px;
+  background-size: 175px, 175px;
   background-repeat: no-repeat;
   left: 50%;
   top: 50%;
 }
 
-/* line 38, ../../sass/screen.scss */
+/* line 28, ../../sass/screen.scss */
 .hit {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;

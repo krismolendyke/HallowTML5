@@ -11,6 +11,13 @@ goog.require('goog.dom.query');
 hllwtml5.hud.hud;
 
 /**
+ * The initial enemy count.
+ *
+ * @type {number}
+ */
+hllwtml5.hud.initialEnemyCount = 0;
+
+/**
  * The rounds display.
  *
  * @type {Element}
@@ -23,6 +30,13 @@ hllwtml5.hud.rounds;
  * @type {Element}
  */
 hllwtml5.hud.enemiesKilled;
+
+/**
+ * The enemies remaining display.
+ *
+ * @type {Element}
+ */
+hllwtml5.hud.enemiesRemaining;
 
 /**
  * The shooting accuracy based on rounds and enemies killed.
@@ -48,6 +62,8 @@ hllwtml5.hud.updateRounds = function(rounds) {
  */
 hllwtml5.hud.updateEnemiesKilled = function(count) {
     goog.dom.setTextContent(hllwtml5.hud.enemiesKilled, count);
+    goog.dom.setTextContent(hllwtml5.hud.enemiesRemaining,
+            (hllwtml5.hud.initialEnemyCount - count) + '');
     hllwtml5.pubsub.publish('accuracyChange');
 };
 
@@ -74,9 +90,11 @@ hllwtml5.hud.updateAccuracy = function() {
  * Initialize the heads up display.
  */
 hllwtml5.hud.init = function() {
+    hllwtml5.hud.initialEnemyCount = goog.dom.query('.enemy').length;
     hllwtml5.hud.hud = goog.dom.query('#hud')[0];
     hllwtml5.hud.rounds = goog.dom.query('#rounds')[0];
     hllwtml5.hud.enemiesKilled = goog.dom.query('#enemies_killed')[0];
+    hllwtml5.hud.enemiesRemaining = goog.dom.query('#enemies_remaining')[0];
     hllwtml5.hud.accuracy = goog.dom.query('#accuracy')[0];
 
     hllwtml5.pubsub.subscribe('roundsChange', hllwtml5.hud.updateRounds);

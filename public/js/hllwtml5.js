@@ -28,7 +28,7 @@ hllwtml5.goBatty = function() {
      */
     loop = function(bat, index, bats, opt_duration) {
         var deg = hllwtml5.common.randomInteger(60, true);
-        var duration = opt_duration || hllwtml5.common.randomInteger(3);
+        var duration = opt_duration || hllwtml5.common.randomInteger(6);
         var scale = Math.random();
         var x = hllwtml5.common.randomInteger(600, true);
         var y = hllwtml5.common.randomInteger(600, true);

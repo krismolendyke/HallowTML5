@@ -6,7 +6,7 @@
     color: rgba(255, 255, 255, 0.8);
     padding: 0.5em;
 
-    @include min-width(230px);
+    @include min-width(300px);
 
     table {
         @include table-scaffolding;
