@@ -9,20 +9,15 @@
 
         <title>HallowTML5</title>
 
-        <script type="text/javascript">
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-6792176-2']);
-            _gaq.push(['_trackPageview']);
-
-            (function() {
-              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-        </script>
-        <script src="js/CubicVR.min.js" type="text/javascript" charset="utf-8" async defer></script>
-        <script src="js/move.min.js" type="text/javascript" charset="utf-8" async defer></script>
-        <script src="js/hllwtml5.min.js" type="text/javascript" charset="utf-8" async defer></script>
+        <script src="../closure/goog/base.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/CubicVR.js" type="text/javascript" charset="utf-8" async defer></script>
+        <script src="js/move.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/animation.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/zombie.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/hud.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/gun.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/hllwtml5.js" type="text/javascript" charset="utf-8"></script>
     </head>
     <body onload="hllwtml5.init()">
         <div id="hud">
@@ -37,8 +32,17 @@
                         <td id="enemies_killed"></td>
                     </tr>
                     <tr>
+                        <td>Enemies Remaining</td>
+                        <td id="enemies_remaining"></td>
+                    </tr>
+                    <tr>
                         <td>Accuracy</td>
                         <td id="accuracy"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Click 'n' hold to fire!
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -46,6 +50,15 @@
         <div id="gun"></div>
         <div id="crosshair"></div>
         <!-- <div id="zombie" class="enemy"></div> -->
+        <div class="bat enemy"></div>
+        <div class="bat enemy"></div>
+        <div class="bat enemy"></div>
+        <div class="bat enemy"></div>
+        <div class="bat enemy"></div>
+        <div class="bat enemy"></div>
+        <div class="bat enemy"></div>
+        <div class="bat enemy"></div>
+        <div class="bat enemy"></div>
         <div class="bat enemy"></div>
         <div class="bat enemy"></div>
         <div class="bat enemy"></div>
